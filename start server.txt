@@ -1,0 +1,18 @@
+func main() {
+	app := iris.New()
+
+	app.Post("/user", func(ctx iris.Context) {
+		username := ctx.PostValue("username")
+		password := ctx.PostValue("password")
+		status := ctx.PostValueDefault("status", "1")
+
+		println("username:" + username + "," + "password:" + password)
+
+		ctx.JSON(iris.Map{
+			"username": username,
+			"status":   status,
+		})
+	})
+
+	app.Run(iris.Addr(":5000"))
+}
